@@ -1,0 +1,33 @@
+BEGIN;
+BEGIN
+select
+	l_returnflag,
+	l_linestatus,
+	sum(l_quantity) as sum_qty,
+	sum(l_extendedprice) as sum_base_price,
+	sum(l_extendedprice * (1 - l_discount)) as sum_disc_price,
+	sum(l_extendedprice * (1 - l_discount) * (1 + l_tax)) as sum_charge,
+	avg(l_quantity) as avg_qty,
+	avg(l_extendedprice) as avg_price,
+	avg(l_discount) as avg_disc,
+	count(*) as count_order
+from
+	lineitem
+where
+	l_shipdate <= date '1998-12-01' - interval '72 days'
+group by
+	l_returnflag,
+	l_linestatus
+order by
+	l_returnflag,
+	l_linestatus;
+ l_returnflag | l_linestatus |   sum_qty   | sum_base_price |  sum_disc_price  |    sum_charge    |     avg_qty      |    avg_price     |      avg_disc      | count_order 
+--------------+--------------+-------------+----------------+------------------+------------------+------------------+------------------+--------------------+-------------
+ A            | F            | 3.69211e+08 |    5.60556e+11 | 537746830147.519 | 559262617242.081 | 25.5000014860792 | 38236.2279350081 | 0.0500044610077808 |    14804056
+ N            | F            | 9.85224e+06 |    1.47676e+10 | 14029062328.0863 | 14590833598.7496 |  25.524133607256 | 38258.6268750037 | 0.0499781087040293 |      385997
+ N            | O            | 7.15708e+08 |    1.09409e+12 | 1069489737450.18 | 1112281040223.25 |  25.497248992701 |  38232.632879091 | 0.0499982225511604 |    29445578
+ R            | F            | 3.69424e+08 |    5.60917e+11 | 538104139405.306 | 559627236128.481 | 25.5087468656277 | 38252.2793197287 | 0.0499947824728369 |    14807590
+(4 rows)
+
+COMMIT;
+COMMIT

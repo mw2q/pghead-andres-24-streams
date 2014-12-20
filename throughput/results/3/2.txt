@@ -1,0 +1,152 @@
+BEGIN;
+BEGIN
+select
+	s_acctbal,
+	s_name,
+	n_name,
+	p_partkey,
+	p_mfgr,
+	s_address,
+	s_phone,
+	s_comment
+from
+	part,
+	supplier,
+	partsupp,
+	nation,
+	region
+where
+	p_partkey = ps_partkey
+	and s_suppkey = ps_suppkey
+	and p_size = 6
+	and p_type like '%BRASS'
+	and s_nationkey = n_nationkey
+	and n_regionkey = r_regionkey
+	and r_name = 'MIDDLE EAST'
+	and ps_supplycost = (
+		select
+			min(ps_supplycost)
+		from
+			partsupp,
+			supplier,
+			nation,
+			region
+		where
+			p_partkey = ps_partkey
+			and s_suppkey = ps_suppkey
+			and s_nationkey = n_nationkey
+			and n_regionkey = r_regionkey
+			and r_name = 'MIDDLE EAST'
+	)
+order by
+	s_acctbal desc,
+	n_name,
+	s_name,
+	p_partkey
+LIMIT 100;
+ s_acctbal |          s_name           |          n_name           | p_partkey |          p_mfgr           |                s_address                 |     s_phone     |                                              s_comment                                               
+-----------+---------------------------+---------------------------+-----------+---------------------------+------------------------------------------+-----------------+------------------------------------------------------------------------------------------------------
+   9999.58 | Supplier#000081596        | JORDAN                    |    431587 | Manufacturer#3            | 31fNONxr5dJA00d6CIqYnjQ,MjwJ6NNYwu43oX   | 23-802-625-7039 | to the furiously bold excuses. slyly final deposits across the slyly pending packages impres
+   9995.05 | Supplier#000077755        | EGYPT                     |   1302715 | Manufacturer#2            | 3TjudTLvQibyoDu                          | 14-493-852-4671 | uctions: blithely regular deposits run carefully blithely unus
+   9991.36 | Supplier#000072616        | SAUDI ARABIA              |   1147604 | Manufacturer#4            | b56dOtMSSOOtrnlC HIW,P                   | 30-646-184-3474 | packages wake. blithely final accounts
+   9989.94 | Supplier#000068635        | IRAN                      |   1218610 | Manufacturer#1            | o1BfGLnL9cAgEYlke,tKZ056HYL0f            | 20-968-531-6322 | o beans. ironic requests cajole fluffily above 
+    9987.2 | Supplier#000011534        | IRAQ                      |    361527 | Manufacturer#4            | 2HEGpCNDgm9a18Gn                         | 21-542-157-2961 | nto beans are carefully! furiously express packages boost slyly above the even depos
+   9984.27 | Supplier#000083260        | SAUDI ARABIA              |    508244 | Manufacturer#5            | aGn,xyh5y8W5YmJM t5etpwpXj7Xae3          | 30-109-322-2639 | efully pending accounts wake carefully special br
+   9981.74 | Supplier#000012899        | SAUDI ARABIA              |    812898 | Manufacturer#3            | kzPUujl nyvLh6rchixdLZt4wLI8tQk,zrR 9    | 30-331-690-7770 |  final accounts. slyly ironic pinto beans nag. furiously 
+   9980.06 | Supplier#000082893        | JORDAN                    |   1707841 | Manufacturer#1            | mq2vZk4kN8CGPOkaRBfQ2                    | 23-649-879-6678 | its detect even ideas. special, bold
+   9977.75 | Supplier#000015808        | EGYPT                     |    990798 | Manufacturer#2            | bjCE0sDnfLsIU6kJR7tw1BKU,7dB1            | 14-520-295-1720 | haggle. blithely special foxes across the ironi
+    9977.5 | Supplier#000071422        | JORDAN                    |    496409 | Manufacturer#2            | 9gcfSdmwqRhsB F656GMhdz9HE2              | 23-986-349-5329 | latelets. slyly express instructions are
+   9977.47 | Supplier#000098649        | JORDAN                    |    698648 | Manufacturer#5            | wt1at1SD5O8d7IdI86,1Uuj wgakT            | 23-632-753-6116 | equests. even excuses according to the q
+   9972.83 | Supplier#000074703        | SAUDI ARABIA              |   1724668 | Manufacturer#5            | Ub8gGTSClotZZpmms1E1ulTUWULdUsqYudQ      | 30-958-326-2557 | eans wake blithely bold packa
+   9969.59 | Supplier#000046205        | IRAQ                      |    271198 | Manufacturer#5            | Zva2XFahjs4f218iIYM7EuX3is,e,9           | 21-183-987-4581 |  slyly final ideas. slyly ironic ideas must cajole carefully. carefully exp
+   9969.01 | Supplier#000070568        | EGYPT                     |    595552 | Manufacturer#3            | xPkZsgZEdOy1q97Nf                        | 14-107-414-1807 | he quickly final requests-- carefully express accounts above the depo
+      9967 | Supplier#000030089        | SAUDI ARABIA              |   1180066 | Manufacturer#5            | PM5TKCIrQNM1B0JF2n                       | 30-389-124-5153 | s accounts use blithely final requests. pe
+   9963.65 | Supplier#000020322        | EGYPT                     |   1170299 | Manufacturer#1            | J3ShW3oKhfTniLW8C                        | 14-304-869-9488 | cies haggle furiously around the special accounts. ruthlessly special asym
+   9963.23 | Supplier#000015401        | IRAN                      |    715400 | Manufacturer#5            | 9znGRnYcQReg5ud xyQmwwqY                 | 20-400-103-3597 | xcuses haggle blithely regular grouches. 
+   9962.84 | Supplier#000081474        | IRAN                      |    381473 | Manufacturer#3            | NxCJ6ZrmeX3KaB                           | 20-152-664-5113 | t the theodolites cajole furiously even ideas. courts kindle furiously a
+   9961.05 | Supplier#000034657        | EGYPT                     |   1984618 | Manufacturer#2            | FH,mEarCMlb59DoDSEDluid                  | 14-589-425-9585 | ts affix slyly. slyly regular packages against the express platelets boost toward the regular 
+   9959.08 | Supplier#000045655        | JORDAN                    |    245654 | Manufacturer#3            | 7uf6CT9E8om,uK5UNaOTG4Tn5DXe61lGg,b6IwPh | 23-428-427-9489 | lly. slyly pending deposits are doggedl
+    9958.1 | Supplier#000016053        | IRAN                      |   1266028 | Manufacturer#5            | QnoygDVlJPX3kYQ                          | 20-105-930-8531 | slyly ironic dependencies play slowly pending, final pinto beans. dependencies slee
+   9954.88 | Supplier#000062508        | IRAQ                      |   1837489 | Manufacturer#3            | x8DvMnPj DEgognqGTi                      | 21-937-593-7894 | the unusual requests. quickly final requests wake carefully
+   9951.03 | Supplier#000062799        | SAUDI ARABIA              |    587783 | Manufacturer#4            | ,IN29m76lXAnLT7s2ZA99kJ6ilEEHzKf         | 30-156-744-3950 | riously carefully express 
+   9947.94 | Supplier#000025599        | IRAN                      |    625598 | Manufacturer#4            | kDAOSpbYucgARjlTMHyg                     | 20-482-621-3728 | along the express, ironic requests sleep furiously even instructions. quickly regular reque
+   9945.48 | Supplier#000077007        | EGYPT                     |   1401964 | Manufacturer#3            | UccCFSwcQpeY7EwVz                        | 14-906-290-5217 | slyly ruthless instructions. slyly final p
+   9940.76 | Supplier#000001062        | SAUDI ARABIA              |   1476047 | Manufacturer#1            | RzD13PXq2yeZm                            | 30-916-179-1075 | y idle packages use fluffily toward the pending deposits. furiously ironic depths affix 
+   9940.63 | Supplier#000016417        | EGYPT                     |   1791399 | Manufacturer#5            | CYOn22bPeW9IVBK Mx                       | 14-454-677-3135 | uickly pending packages. stealthy account
+   9939.66 | Supplier#000019287        | JORDAN                    |   1194275 | Manufacturer#4            | UEYgnb 2KCDfBaNHMe1YIjqfemDF5Mx76Z67RtT  | 23-393-379-2958 | lar, bold excuses. slyly silent deposit
+   9933.71 | Supplier#000047743        | EGYPT                     |   1122731 | Manufacturer#5            | tLuh7jr4 ,                               | 14-617-231-4703 | d deposits on the regular packages breach slyly furiously final accounts. careful
+   9932.44 | Supplier#000081501        | JORDAN                    |   1731466 | Manufacturer#3            | rilr3cPmOZ QwHwrYez9tawI3H6lpyNccQE      | 23-195-322-2688 | fily special pinto beans should wake. slyly unusual foxes after the theodolites sleep regularly slyl
+   9931.82 | Supplier#000007052        | IRAQ                      |    157049 | Manufacturer#4            | EvvMY80H5gifhB5a82U4Q0FtttnZ3npEYJ       | 21-562-180-1409 | he furiously even theodolites. blithely ironic theodo
+   9931.71 | Supplier#000096309        | EGYPT                     |    546298 | Manufacturer#4            | 7b03z syyE                               | 14-208-104-6810 |  at the regular accounts are blithely p
+   9931.36 | Supplier#000098819        | IRAN                      |   1473804 | Manufacturer#2            | AtwS02uQIL XuPknU                        | 20-235-423-6337 | egular accounts detect carefully regular packages. slyly ironic
+   9928.28 | Supplier#000094325        | EGYPT                     |    919297 | Manufacturer#1            | yreceynuxHMUPIaz5Hv8tTyNU                | 14-492-960-8071 | deas grow regularly ironic deposits. quiet courts aft
+    9924.5 | Supplier#000046527        | JORDAN                    |   1596496 | Manufacturer#3            | GSwKZDVWwK XvmNENmvNZdaq8KyoMdBY7 zQb,B  | 23-324-901-2793 | ly pending pinto beans. blithely even accounts detect
+   9923.32 | Supplier#000037868        | IRAQ                      |   1212855 | Manufacturer#4            | tTmBPjL235lhl8yx T9                      | 21-571-748-3674 | y above the unusual, expres
+   9921.14 | Supplier#000085368        | SAUDI ARABIA              |     85367 | Manufacturer#1            | wYfwiSYr,icqg9                           | 30-380-482-4132 | eas affix among the slyly ironic
+   9920.02 | Supplier#000089739        | SAUDI ARABIA              |   1164727 | Manufacturer#3            | gxBMJrdAVzyL 1IO94sThtB6idYdt3J 1XIG3f1  | 30-599-132-6428 | l requests by the even in
+   9919.26 | Supplier#000073622        | JORDAN                    |     23621 | Manufacturer#5            | IWhsTDjjEaCX2d LHU0ue                    | 23-606-450-3646 | side the silent, regular requests. carefully final pi
+   9918.15 | Supplier#000048051        | JORDAN                    |    648050 | Manufacturer#5            | fw1bvwXPS731TLlc p6m3NFzFR               | 23-943-955-2390 | its. ironic, bold excuses cajole according to th
+   9916.89 | Supplier#000089786        | JORDAN                    |   1314746 | Manufacturer#1            | Nk1k2WnRCn                               | 23-717-452-5399 | thely even requests. slyly ironic requests haggl
+   9916.06 | Supplier#000059761        | EGYPT                     |   1484718 | Manufacturer#4            | qhMjY2VfLi63dxXeiAEO                     | 14-724-147-4221 | p according to the carefully unusual instructions. regular, even pinto beans according to the regu
+   9913.61 | Supplier#000042219        | JORDAN                    |   1267182 | Manufacturer#2            | i6AT9EJgmExy73l0LSLATmr056ji             | 23-338-799-1347 | even packages. blithely regular pinto beans
+   9911.71 | Supplier#000018616        | IRAQ                      |   1293603 | Manufacturer#4            | W 13O5 4jvZpt                            | 21-430-876-5933 | ake furiously according to the final accounts. blithely ironic dinos boost enticingly. furiously
+   9910.97 | Supplier#000086682        | SAUDI ARABIA              |   1386681 | Manufacturer#3            | xxqGf,Yl2iO95nA8RcagKcoOBEjQnZFLTK pFJyr | 30-256-408-4700 | side the always final pinto beans. slyly unusual excuses 
+   9906.91 | Supplier#000011551        | JORDAN                    |   1886532 | Manufacturer#1            | u7DH4Dt,qztQUf5Rm0tje                    | 23-279-528-6091 | after the carefully express instruct
+   9904.04 | Supplier#000014047        | JORDAN                    |   1364020 | Manufacturer#4            | 9Z5Vr9wZQPj1DLanSFtCo3Izw8jg             | 23-985-646-4439 | , regular requests haggle quickly. regular warhorses eng
+    9901.2 | Supplier#000085757        | SAUDI ARABIA              |    435748 | Manufacturer#5            | ocH4SkwAMLY48LIK9cpU68g66TDWPjdH         | 30-532-202-7501 | gular instructions boost furiously ironic pinto beans. ir
+   9897.23 | Supplier#000017996        | IRAQ                      |   1767961 | Manufacturer#4            | gJKD5JLmcfBogIQ3eFE,PMcelXRGY368 8Xrk7   | 21-521-174-3588 | egular platelets after the requests detect pint
+   9896.56 | Supplier#000094084        | IRAQ                      |    419071 | Manufacturer#4            | K4FpE,wZSgqs42s4BZszAB                   | 21-639-787-5944 | lites? requests print among the quickly regular requests. furiously ironic 
+   9893.23 | Supplier#000081035        | IRAN                      |    981034 | Manufacturer#2            | krpST ijRr                               | 20-963-631-3162 | eans around the slyly pending excuses haggle carefully ruthless req
+   9893.23 | Supplier#000081035        | IRAN                      |   1631002 | Manufacturer#1            | krpST ijRr                               | 20-963-631-3162 | eans around the slyly pending excuses haggle carefully ruthless req
+   9886.96 | Supplier#000033769        | JORDAN                    |    683756 | Manufacturer#4            | VOBDOGC6DHuArynZi9ViiWivzbRazKYwnQXHHe   | 23-111-595-8432 | riously even accounts integrate furiously against the packages. quic
+   9886.96 | Supplier#000033769        | JORDAN                    |   1808750 | Manufacturer#3            | VOBDOGC6DHuArynZi9ViiWivzbRazKYwnQXHHe   | 23-111-595-8432 | riously even accounts integrate furiously against the packages. quic
+   9885.37 | Supplier#000061594        | IRAQ                      |   1461593 | Manufacturer#3            | EbvdjOsBSVg7iivES                        | 21-189-455-6754 | ily special depths. dependencies
+    9881.5 | Supplier#000041903        | JORDAN                    |   1441902 | Manufacturer#1            | SL4qLfoTof7                              | 23-646-350-3761 | requests. ironic excuses nag dependencies. fluffily ironic platelets slee
+   9878.32 | Supplier#000061879        | IRAQ                      |    836870 | Manufacturer#1            | tUhx2zL4zMomBRMCr                        | 21-721-870-7696 | ccounts detect slyly quickly e
+   9876.17 | Supplier#000086858        | EGYPT                     |    961848 | Manufacturer#1            | DE,FMHB9MhGabh2gwrbH6xMzIy5CwdQTpTJc3qm  | 14-102-678-3810 |  packages dazzle above the blit
+   9875.18 | Supplier#000089166        | EGYPT                     |   1139143 | Manufacturer#4            | pl8VZ0mEyjOZenK                          | 14-519-784-3103 | nic asymptotes. boldly final p
+   9873.46 | Supplier#000018986        | JORDAN                    |    243979 | Manufacturer#5            | G1dg2y4LcIRiOzKc1pOy7S3KAppXuEK2I6Y      | 23-847-528-3883 | ly bold instructions boost blithely after the regular, ironic packages. slyly ironic accounts haggle
+   9870.84 | Supplier#000067014        | EGYPT                     |    816997 | Manufacturer#1            | 4Ye3CYJ2c2nm                             | 14-654-778-7029 | arefully unusual requests unwind slyly at the 
+   9869.16 | Supplier#000007901        | JORDAN                    |   1357874 | Manufacturer#1            | aS6VO,6XvwM9                             | 23-777-524-1341 | lites. quickly unusual dugouts must nag stealthy frays. foxes haggle. speci
+   9860.69 | Supplier#000048472        | JORDAN                    |   1973414 | Manufacturer#2            | 9jabjy4CYniCjvP4dJn94y BPLIF3Yeik6eaPVT  | 23-158-183-2087 | nal foxes according to the carefully 
+   9859.05 | Supplier#000071122        | IRAN                      |   1746104 | Manufacturer#5            | A7yrWbXOsWozZbbi7VnRWLbu0DjqzRImlhd3     | 20-903-348-6132 | s. unusual theodolites against the ironic, ironic requests are quickly 
+   9857.64 | Supplier#000064798        | IRAQ                      |    714783 | Manufacturer#5            | 2LJeNGY4nVmoto2HSvbAOco                  | 21-250-503-6972 | riously finally regular accounts. quietly ironic asymptotes boost. final dependencies wake furio
+   9850.03 | Supplier#000011846        | JORDAN                    |   1286833 | Manufacturer#3            | nfowJ8YDYTtMbe3HR                        | 23-448-271-6042 | hely even packages. slyly ironic dependencies around
+    9849.2 | Supplier#000089874        | IRAQ                      |    339867 | Manufacturer#4            | 6JDeBOPvCdqium,xDOGBbZj4VzJGo2DC83       | 21-217-467-6722 | mptotes. furiously regular excuses eat. slyly final foxes agains
+    9849.2 | Supplier#000089874        | IRAQ                      |    489873 | Manufacturer#3            | 6JDeBOPvCdqium,xDOGBbZj4VzJGo2DC83       | 21-217-467-6722 | mptotes. furiously regular excuses eat. slyly final foxes agains
+   9848.82 | Supplier#000005190        | IRAN                      |   1905189 | Manufacturer#4            | Ho GIXxcwcCBwVqH,U7W                     | 20-266-562-4864 | atelets cajole slyly among the final ideas. carefully thin accounts integrate fu
+   9847.43 | Supplier#000078630        | SAUDI ARABIA              |   1303590 | Manufacturer#2            | O 0jO2OZW4Ll7DzKNtvWqbR84KqEbKR6EEr      | 30-624-751-3644 | c accounts. doggedly regular d
+   9839.28 | Supplier#000069875        | EGYPT                     |   1194841 | Manufacturer#3            | CkWl7ypvdfDbDLvfO38rws2ux l7knudJiz      | 14-351-313-8406 | foxes cajole. pending packages across the pending asymptotes 
+   9838.82 | Supplier#000050098        | JORDAN                    |   1000077 | Manufacturer#1            | NHxP445QYYZl2ZS1Ukp42T4YmJYib1RR9xYxmvz  | 23-358-187-8366 | beans detect daringly carefully final pinto bea
+   9833.34 | Supplier#000079699        | JORDAN                    |   1329672 | Manufacturer#1            | iS9sAcuhy41 a                            | 23-839-870-5773 | packages. carefully dogged requests wake quickly-- regular, ironic pack
+   9826.49 | Supplier#000017331        | JORDAN                    |    842306 | Manufacturer#3            | iGAbfxs5jHpN0W7cgKbqKM2B0 Ggz65          | 23-957-423-4394 | y bold ideas. furiously ironic packages sleep slyly about the slyly final excuse
+   9818.18 | Supplier#000074667        | JORDAN                    |    449662 | Manufacturer#1            | SAQ3hWFAJ6aOBBPrH1n6VHPY89,Tqzz          | 23-726-321-2328 |  nag furiously special dependencies. blithely special pinto beans about the s
+   9818.15 | Supplier#000056161        | IRAN                      |   1656160 | Manufacturer#4            | Mmj3hfVWfVmIUYJu9NY11BiX7C               | 20-423-361-3830 | s ideas. blithely ironic accounts against th
+   9817.61 | Supplier#000078525        | IRAN                      |   1053514 | Manufacturer#5            | y qdIbRJXtRXiNS4TCeUghM9KUqB             | 20-135-690-4998 | gle carefully regular requests. pending requests after t
+   9812.95 | Supplier#000014112        | IRAN                      |   1689095 | Manufacturer#1            | oQkwQOoa,WzIO08ufXbc, 0U                 | 20-565-749-5452 | r pinto beans. slyly special platelets eat slyly against the special theodolites. courts promi
+   9806.52 | Supplier#000005276        | IRAQ                      |   1705275 | Manufacturer#1            | inh0KOhRfLM7WRhdRNvJJDQx                 | 21-834-496-7360 | the slyly unusual theodolites; carefully even accounts use slyly. sl
+   9805.73 | Supplier#000090446        | JORDAN                    |    840429 | Manufacturer#5            | c11T6PYqjwGxtecHQMGEK47IC                | 23-387-827-8870 | t accounts use quickly about the blithely final a
+   9804.28 | Supplier#000019702        | IRAQ                      |   1844647 | Manufacturer#1            | 65mDL8bjZNa                              | 21-828-389-2786 | carefully regular requests according to the express, express braids sleep furiously furi
+   9802.35 | Supplier#000051512        | EGYPT                     |   1926492 | Manufacturer#1            | MQ2Q4utOX5cVYIygEVsl                     | 14-615-465-5340 | s after the express deposits cajole
+   9802.19 | Supplier#000070235        | JORDAN                    |   1770234 | Manufacturer#2            | XIiHYQytCVh1A,gDOGiDsp,I2maKz            | 23-668-279-8901 | er the pending courts. sl
+   9788.55 | Supplier#000067149        | JORDAN                    |   1442134 | Manufacturer#5            | LcVyYW8DxqMIWOPV7K6NRO4170Q8mGED         | 23-286-782-3520 | . slyly ironic platelets wake about the fluffily unusual theodolites. silent, r
+   9786.58 | Supplier#000078446        | IRAQ                      |   1903388 | Manufacturer#5            | hQkzGrpKO9ZeUzNew9bLMoEH,XC DAv          | 21-537-981-5684 | its. furiously regular packages unwind blithely accounts. even depos
+    9784.7 | Supplier#000013556        | EGYPT                     |    388552 | Manufacturer#5            | gCnMC3E3LlaXec,                          | 14-363-711-4003 | unts cajole blithely against the close, f
+   9782.18 | Supplier#000057952        | EGYPT                     |   1532936 | Manufacturer#4            | ,zdB TUxOJzVycu,SW LtuDCOZPiRHwuja       | 14-895-308-7184 | ages sleep after the furiously final asymptotes. even instructions doze
+   9774.53 | Supplier#000030002        | EGYPT                     |   1630001 | Manufacturer#1            | 7Zx74rAWEliWsuR8thZRndSprX7kM IA         | 14-535-273-5064 |  blithely final excuses. bold, bold theodolites nag slyly express, ironic reques
+   9770.68 | Supplier#000044720        | SAUDI ARABIA              |   1219707 | Manufacturer#5            | 7UVgefSEpYxWA0sZ9IDvpR                   | 30-554-661-1142 | pinto beans. regular, even accounts wake carefully quietly express depo
+   9767.78 | Supplier#000033342        | IRAQ                      |   1558296 | Manufacturer#2            | mIDblhhoKy28re8OioQ3EjJZRvxCNh6Q8E3QZHd  | 21-932-934-1835 | unts nod special deposits. carefully regular accounts boost quickly carefully final s
+   9767.34 | Supplier#000070384        | JORDAN                    |   1645367 | Manufacturer#3            | 9hqg0Jf9ylCuWEUt3x2NKkfRNn bN1okSWwVF    | 23-147-338-7546 | ironic epitaphs; slyly even requests accordin
+   9765.13 | Supplier#000059142        | JORDAN                    |   1784090 | Manufacturer#1            | xI,q fU6hIqDtECUh                        | 23-288-742-6570 | ind furiously ironic, express instructions. asymptotes among the unusual pinto beans 
+   9762.36 | Supplier#000058617        | SAUDI ARABIA              |    608604 | Manufacturer#2            | 2OoIc0E,az 0AesgxOoTQtu1V3YF             | 30-958-870-9312 | deas. carefully ironic theodolites haggle against the carefully bold de
+   9761.47 | Supplier#000019567        | IRAQ                      |    619566 | Manufacturer#3            | yzHEINc Owbrl                            | 21-730-878-4523 | efully unusual requests. blithely even accounts wake pinto beans. b
+   9761.47 | Supplier#000019567        | IRAQ                      |   1869530 | Manufacturer#1            | yzHEINc Owbrl                            | 21-730-878-4523 | efully unusual requests. blithely even accounts wake pinto beans. b
+   9760.92 | Supplier#000073772        | IRAQ                      |   1423743 | Manufacturer#1            | AVH64Gf9YWCpL6Rb                         | 21-998-981-8349 | e blithely. blithely pending packa
+   9760.23 | Supplier#000088928        | SAUDI ARABIA              |    838911 | Manufacturer#3            | h1fbKRPklKJJ0g9J1GK                      | 30-542-257-6983 | ly ironic theodolites according 
+   9759.99 | Supplier#000003076        | EGYPT                     |    328066 | Manufacturer#1            | T8pR6AMA3RRjXPDoqZ9CnuY HTZHbutrLh       | 14-395-910-3054 |  special warthogs cajole quickly a
+    9754.6 | Supplier#000000133        | EGYPT                     |   1050112 | Manufacturer#5            | QT,semYwdx                               | 14-731-952-5158 | he quickly express instructions 
+   9753.61 | Supplier#000043746        | SAUDI ARABIA              |   1243745 | Manufacturer#3            | wogMVNLh5tyfuWknh,2ey8BQNJY9Moz          | 30-866-412-9011 | unusual instructions wake among the ironic, pending escapades-- f
+(100 rows)
+
+COMMIT;
+COMMIT

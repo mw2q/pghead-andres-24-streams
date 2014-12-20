@@ -1,0 +1,37 @@
+BEGIN;
+BEGIN
+select
+	n_name,
+	sum(l_extendedprice * (1 - l_discount)) as revenue
+from
+	customer,
+	orders,
+	lineitem,
+	supplier,
+	nation,
+	region
+where
+	c_custkey = o_custkey
+	and l_orderkey = o_orderkey
+	and l_suppkey = s_suppkey
+	and c_nationkey = s_nationkey
+	and s_nationkey = n_nationkey
+	and n_regionkey = r_regionkey
+	and r_name = 'MIDDLE EAST'
+	and o_orderdate >= date '1993-01-01'
+	and o_orderdate < date '1993-01-01' + interval '1 year'
+group by
+	n_name
+order by
+	revenue desc;
+          n_name           |     revenue      
+---------------------------+------------------
+ IRAQ                      | 539548309.459243
+ SAUDI ARABIA              | 533523794.581866
+ EGYPT                     | 531799701.928249
+ JORDAN                    | 531189600.153035
+ IRAN                      | 528617179.810485
+(5 rows)
+
+COMMIT;
+COMMIT
